@@ -5,17 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CalculadoraHorasTrabajo"
     xmlns:views="clr-namespace:CalculadoraHorasTrabajo.Views"
-    Title="CalculadoraHorasTrabajo">
+    Title="CalculadoraHorasTrabajo"
+    FlyoutBehavior="Flyout">
 
-    <TabBar>
-        <ShellContent
-            Title="Registro Horas"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
-        <ShellContent
-            Title="Resumen Horas"
-            ContentTemplate="{DataTemplate views:ResumenPage}"
-            Route="ResumenPage" />
-    </TabBar>
+    <FlyoutItem Title="Registro Horas" Route="MainPage">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Picaje" Route="PicajePage">
+        <ShellContent ContentTemplate="{DataTemplate views:PicajePage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Resumen Horas" Route="ResumenPage">
+        <ShellContent ContentTemplate="{DataTemplate views:ResumenPage}" />
+    </FlyoutItem>
 
 </Shell>

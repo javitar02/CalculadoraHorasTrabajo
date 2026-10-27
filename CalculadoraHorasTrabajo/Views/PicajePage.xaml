@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CalculadoraHorasTrabajo.ViewModels"
+             x:Class="CalculadoraHorasTrabajo.Views.PicajePage"
+             Title="Automatizar Picaje"
+             x:DataType="vm:PicajeViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label Text="Generar semana" FontSize="18" FontAttributes="Bold" />
+            
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Turno" />
+                <Picker ItemsSource="{Binding Turnos}" SelectedItem="{Binding Turno}" />
+            </VerticalStackLayout>
+
+            <Label Text="Días a descansar" FontAttributes="Bold" />
+            <VerticalStackLayout Spacing="6">
+                <HorizontalStackLayout Spacing="12">
+                    <CheckBox IsChecked="{Binding Dias[0].Descanso}" />
+                    <Label Text="{Binding Dias[0].Nombre}" VerticalOptions="Center" />
+                    <Label Text="{Binding Dias[0].Fecha, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" TextColor="Gray" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="12">
+                    <CheckBox IsChecked="{Binding Dias[1].Descanso}" />
+                    <Label Text="{Binding Dias[1].Nombre}" VerticalOptions="Center" />
+                    <Label Text="{Binding Dias[1].Fecha, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" TextColor="Gray" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="12">
+                    <CheckBox IsChecked="{Binding Dias[2].Descanso}" />
+                    <Label Text="{Binding Dias[2].Nombre}" VerticalOptions="Center" />
+                    <Label Text="{Binding Dias[2].Fecha, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" TextColor="Gray" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="12">
+                    <CheckBox IsChecked="{Binding Dias[3].Descanso}" />
+                    <Label Text="{Binding Dias[3].Nombre}" VerticalOptions="Center" />
+                    <Label Text="{Binding Dias[3].Fecha, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" TextColor="Gray" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="12">
+                    <CheckBox IsChecked="{Binding Dias[4].Descanso}" />
+                    <Label Text="{Binding Dias[4].Nombre}" VerticalOptions="Center" />
+                    <Label Text="{Binding Dias[4].Fecha, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" TextColor="Gray" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="12">
+                    <CheckBox IsChecked="{Binding Dias[5].Descanso}" />
+                    <Label Text="{Binding Dias[5].Nombre}" VerticalOptions="Center" />
+                    <Label Text="{Binding Dias[5].Fecha, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" TextColor="Gray" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="12">
+                    <CheckBox IsChecked="{Binding Dias[6].Descanso}" />
+                    <Label Text="{Binding Dias[6].Nombre}" VerticalOptions="Center" />
+                    <Label Text="{Binding Dias[6].Fecha, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" TextColor="Gray" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <Button Text="Generar semana" Command="{Binding GenerarCommand}" />
+
+            <Label Text="Nota: Si ya existe un registro para ese día, se actualizará con el turno elegido." FontSize="12" TextColor="Gray" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
