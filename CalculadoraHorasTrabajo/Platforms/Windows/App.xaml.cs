@@ -19,7 +19,25 @@ namespace CalculadoraHorasTrabajo.WinUI
             this.InitializeComponent();
         }
 
-        protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        base.OnLaunched(args);
+
+        var window = Microsoft.UI.Xaml.Window.Current;
+        if (window != null)
+        {
+            var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(
+                Microsoft.UI.Win32Interop.GetWindowIdFromWindow(
+                    WinRT.Interop.WindowNative.GetWindowHandle(window)));
+            
+            if (appWindow != null)
+            {
+                appWindow.Resize(new Windows.Graphics.SizeInt32(420, 720));
+            }
+        }
     }
+}
 
 }

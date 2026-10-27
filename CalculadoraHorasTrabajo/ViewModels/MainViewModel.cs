@@ -23,20 +23,7 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string descansoMinutosTexto = "60";
 
-    [ObservableProperty]
-    private int mesSeleccionado = DateTime.Today.Month;
-
-    [ObservableProperty]
-    private int añoSeleccionado = DateTime.Today.Year;
-
-    [ObservableProperty]
-    private string totalHorasMes = "0.00 h";
-
     public ObservableCollection<RegistroDiario> Registros { get; } = new();
-    public ObservableCollection<RegistroDiario> RegistrosFiltrados { get; } = new();
-
-    public List<int> Meses { get; } = Enumerable.Range(1, 12).ToList();
-    public List<int> Años { get; } = Enumerable.Range(DateTime.Today.Year - 5, 6).ToList();
 
     public MainViewModel()
     {
@@ -49,7 +36,6 @@ public partial class MainViewModel : ObservableObject
         Registros.Clear();
         foreach (var r in lista.OrderByDescending(x => x.Fecha))
             Registros.Add(r);
-        AplicarFiltro();
     }
 
     [RelayCommand]
@@ -60,7 +46,9 @@ public partial class MainViewModel : ObservableObject
 
         if (!_calculoService.EsValido(HoraEntrada, HoraSalida, descansoMin))
         {
-            if (Application.Current?.MainPage != null)
+            if (Application.Current?.Windows?.FirstOrDefault()?.Page != null)
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Revisa las horas: salida/entrada o descanso inválidos.", "OK");
+            else if (Application.Current?.MainPage != null)
                 await Application.Current.MainPage.DisplayAlert("Error", "Revisa las horas: salida/entrada o descanso inválidos.", "OK");
             return;
         }
@@ -78,7 +66,6 @@ public partial class MainViewModel : ObservableObject
 
         Registros.Insert(0, registro);
         await _storageService.GuardarAsync(Registros.ToList());
-        AplicarFiltro();
     }
 
     [RelayCommand]
@@ -89,31 +76,6 @@ public partial class MainViewModel : ObservableObject
         {
             Registros.Remove(registro);
             await _storageService.GuardarAsync(Registros.ToList());
-            AplicarFiltro();
         }
-    }
-
-    [RelayCommand]
-    private void Filtrar()
-    {
-        AplicarFiltro();
-    }
-
-    partial void OnMesSeleccionadoChanged(int value) => AplicarFiltro();
-    partial void OnAñoSeleccionadoChanged(int value) => AplicarFiltro();
-
-    private void AplicarFiltro()
-    {
-        RegistrosFiltrados.Clear();
-        var filtrados = Registros
-            .Where(r => r.Fecha.Month == MesSeleccionado && r.Fecha.Year == AñoSeleccionado)
-            .OrderByDescending(r => r.Fecha)
-            .ToList();
-
-        foreach (var r in filtrados)
-            RegistrosFiltrados.Add(r);
-
-        var total = filtrados.Sum(r => r.HorasNetas);
-        TotalHorasMes = $"{total:0.00} h";
     }
 }

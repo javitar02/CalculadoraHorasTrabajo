@@ -4,11 +4,18 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CalculadoraHorasTrabajo"
+    xmlns:views="clr-namespace:CalculadoraHorasTrabajo.Views"
     Title="CalculadoraHorasTrabajo">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Registro Horas"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+        <ShellContent
+            Title="Resumen Horas"
+            ContentTemplate="{DataTemplate views:ResumenPage}"
+            Route="ResumenPage" />
+    </TabBar>
 
 </Shell>

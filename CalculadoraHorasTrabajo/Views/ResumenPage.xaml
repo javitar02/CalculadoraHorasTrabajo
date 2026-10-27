@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CalculadoraHorasTrabajo.Views.ResumenPage"
+             Title="Resumen Horas">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label Text="Resumen por mes" FontSize="18" FontAttributes="Bold" />
+            <CollectionView ItemsSource="{Binding ResumenMensual}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="8" VerticalItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="12" BorderColor="LightGray" CornerRadius="12" HasShadow="False" HeightRequest="110">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AbrirDetalleCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="4">
+                                <Label Text="{Binding NombreMes}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                                <Label Text="{Binding TotalHoras, StringFormat='{0:0.00} h'}" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
